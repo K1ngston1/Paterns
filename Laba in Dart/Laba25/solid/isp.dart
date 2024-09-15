@@ -1,5 +1,5 @@
 abstract class Bookable {
-  void bookTicket();
+  void bookTicket(); // якщо не дотримати isp все в одному інтерфейсі
 }
 
 abstract class Payable {
