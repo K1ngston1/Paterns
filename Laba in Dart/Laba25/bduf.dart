@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class User {
   late String _name;
   late String _email;
@@ -61,13 +62,48 @@ class Booking {
   }
 }
 
+class Cinema {
+  List<User> _users = [];
+  List<Booking> _bookings = [];
+
+  void addUser(User user) {
+    _users.add(user);
+    print('User added: ${user.name}');
+  }
+
+  Booking createBooking(User user) {
+    var booking = Booking(user);
+    _bookings.add(booking);
+    return booking;
+  }
+
+  void showAllBookings() {
+    if (_bookings.isEmpty) {
+      print('No bookings available.');
+    } else {
+      for (var booking in _bookings) {
+        booking.showBookingDetails();
+      }
+    }
+  }
+}
+
 void main() {
-  User user = User('John Doe', 'johndoe@example.com');
+  Cinema cinema = Cinema();
+
+  User user1 = User('John Doe', 'johndoe@example.com');
+  User user2 = User('Jane Smith', 'janesmith@example.com');
+
+  cinema.addUser(user1);
+  cinema.addUser(user2);
+
+  Booking booking1 = cinema.createBooking(user1);
   Ticket ticket1 = Ticket(12.50, DateTime.now(), 'Movie A');
   Ticket ticket2 =
       Ticket(15.00, DateTime.now().add(Duration(days: 1)), 'Movie B');
-  Booking booking = Booking(user);
-  booking.addTicket(ticket1);
-  booking.addTicket(ticket2);
-  booking.showBookingDetails();
+
+  booking1.addTicket(ticket1);
+  booking1.addTicket(ticket2);
+
+  cinema.showAllBookings();
 }
